@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$GameState {
 
- int get score; int get lives; GameStatus get status;
+ int get score; int get lives; GameStatus get status; double get absorberRadius;
 /// Create a copy of GameState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $GameStateCopyWith<GameState> get copyWith => _$GameStateCopyWithImpl<GameState>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is GameState&&(identical(other.score, score) || other.score == score)&&(identical(other.lives, lives) || other.lives == lives)&&(identical(other.status, status) || other.status == status));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is GameState&&(identical(other.score, score) || other.score == score)&&(identical(other.lives, lives) || other.lives == lives)&&(identical(other.status, status) || other.status == status)&&(identical(other.absorberRadius, absorberRadius) || other.absorberRadius == absorberRadius));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,score,lives,status);
+int get hashCode => Object.hash(runtimeType,score,lives,status,absorberRadius);
 
 @override
 String toString() {
-  return 'GameState(score: $score, lives: $lives, status: $status)';
+  return 'GameState(score: $score, lives: $lives, status: $status, absorberRadius: $absorberRadius)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $GameStateCopyWith<$Res>  {
   factory $GameStateCopyWith(GameState value, $Res Function(GameState) _then) = _$GameStateCopyWithImpl;
 @useResult
 $Res call({
- int score, int lives, GameStatus status
+ int score, int lives, GameStatus status, double absorberRadius
 });
 
 
@@ -62,12 +62,13 @@ class _$GameStateCopyWithImpl<$Res>
 
 /// Create a copy of GameState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? score = null,Object? lives = null,Object? status = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? score = null,Object? lives = null,Object? status = null,Object? absorberRadius = null,}) {
   return _then(_self.copyWith(
 score: null == score ? _self.score : score // ignore: cast_nullable_to_non_nullable
 as int,lives: null == lives ? _self.lives : lives // ignore: cast_nullable_to_non_nullable
 as int,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
-as GameStatus,
+as GameStatus,absorberRadius: null == absorberRadius ? _self.absorberRadius : absorberRadius // ignore: cast_nullable_to_non_nullable
+as double,
   ));
 }
 
@@ -152,10 +153,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int score,  int lives,  GameStatus status)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int score,  int lives,  GameStatus status,  double absorberRadius)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _GameState() when $default != null:
-return $default(_that.score,_that.lives,_that.status);case _:
+return $default(_that.score,_that.lives,_that.status,_that.absorberRadius);case _:
   return orElse();
 
 }
@@ -173,10 +174,10 @@ return $default(_that.score,_that.lives,_that.status);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int score,  int lives,  GameStatus status)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int score,  int lives,  GameStatus status,  double absorberRadius)  $default,) {final _that = this;
 switch (_that) {
 case _GameState():
-return $default(_that.score,_that.lives,_that.status);case _:
+return $default(_that.score,_that.lives,_that.status,_that.absorberRadius);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -193,10 +194,10 @@ return $default(_that.score,_that.lives,_that.status);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int score,  int lives,  GameStatus status)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int score,  int lives,  GameStatus status,  double absorberRadius)?  $default,) {final _that = this;
 switch (_that) {
 case _GameState() when $default != null:
-return $default(_that.score,_that.lives,_that.status);case _:
+return $default(_that.score,_that.lives,_that.status,_that.absorberRadius);case _:
   return null;
 
 }
@@ -208,12 +209,13 @@ return $default(_that.score,_that.lives,_that.status);case _:
 
 
 class _GameState implements GameState {
-  const _GameState({required this.score, required this.lives, required this.status});
+  const _GameState({required this.score, required this.lives, required this.status, required this.absorberRadius});
   
 
 @override final  int score;
 @override final  int lives;
 @override final  GameStatus status;
+@override final  double absorberRadius;
 
 /// Create a copy of GameState
 /// with the given fields replaced by the non-null parameter values.
@@ -225,16 +227,16 @@ _$GameStateCopyWith<_GameState> get copyWith => __$GameStateCopyWithImpl<_GameSt
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _GameState&&(identical(other.score, score) || other.score == score)&&(identical(other.lives, lives) || other.lives == lives)&&(identical(other.status, status) || other.status == status));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _GameState&&(identical(other.score, score) || other.score == score)&&(identical(other.lives, lives) || other.lives == lives)&&(identical(other.status, status) || other.status == status)&&(identical(other.absorberRadius, absorberRadius) || other.absorberRadius == absorberRadius));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,score,lives,status);
+int get hashCode => Object.hash(runtimeType,score,lives,status,absorberRadius);
 
 @override
 String toString() {
-  return 'GameState(score: $score, lives: $lives, status: $status)';
+  return 'GameState(score: $score, lives: $lives, status: $status, absorberRadius: $absorberRadius)';
 }
 
 
@@ -245,7 +247,7 @@ abstract mixin class _$GameStateCopyWith<$Res> implements $GameStateCopyWith<$Re
   factory _$GameStateCopyWith(_GameState value, $Res Function(_GameState) _then) = __$GameStateCopyWithImpl;
 @override @useResult
 $Res call({
- int score, int lives, GameStatus status
+ int score, int lives, GameStatus status, double absorberRadius
 });
 
 
@@ -262,12 +264,13 @@ class __$GameStateCopyWithImpl<$Res>
 
 /// Create a copy of GameState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? score = null,Object? lives = null,Object? status = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? score = null,Object? lives = null,Object? status = null,Object? absorberRadius = null,}) {
   return _then(_GameState(
 score: null == score ? _self.score : score // ignore: cast_nullable_to_non_nullable
 as int,lives: null == lives ? _self.lives : lives // ignore: cast_nullable_to_non_nullable
 as int,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
-as GameStatus,
+as GameStatus,absorberRadius: null == absorberRadius ? _self.absorberRadius : absorberRadius // ignore: cast_nullable_to_non_nullable
+as double,
   ));
 }
 

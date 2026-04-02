@@ -1,25 +1,26 @@
+import 'package:absorb/absorb_game/overlays/game_over_overlay.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../absorb_game.dart';
-import '../state/game_state_bloc.dart';
-import 'game_overlays.dart';
+import 'absorb_game.dart';
+import 'states/game_state_bloc.dart';
+import 'overlays/score_overlay.dart';
 
-class GameScreen extends StatelessWidget {
-  const GameScreen({super.key});
+class AbsorbGamePage extends StatelessWidget {
+  const AbsorbGamePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => GameStateBloc(),
-      child: const _GameView(),
+      child: const _AbsorbGameView(),
     );
   }
 }
 
-class _GameView extends StatelessWidget {
-  const _GameView();
+class _AbsorbGameView extends StatelessWidget {
+  const _AbsorbGameView();
 
   @override
   Widget build(BuildContext context) {
@@ -31,11 +32,8 @@ class _GameView extends StatelessWidget {
         child: Stack(
           children: [
             GameWidget(game: AbsorbGame(gameStateBloc: gameStateBloc)),
-            GameOverlays(
-              onResetRequested: () {
-                gameStateBloc.add(const ResetGame());
-              },
-            ),
+            ScoreOverlay(),
+            GameOverOverlay(),
           ],
         ),
       ),

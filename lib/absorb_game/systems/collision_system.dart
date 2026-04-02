@@ -3,7 +3,7 @@ import 'package:flame/components.dart';
 import '../components/absorber.dart';
 import '../components/ball.dart';
 import '../models/ball_type.dart';
-import '../state/game_state_bloc.dart';
+import '../states/game_state_bloc.dart';
 
 class CollisionUpdateResult {
   final List<GameStateEvent> events;
@@ -51,7 +51,10 @@ class CollisionSystem {
         handleBallBallCollision(balls[i], balls[j]);
       }
     }
-    return CollisionUpdateResult(events: events, destroyedBalls: destroyedBalls);
+    return CollisionUpdateResult(
+      events: events,
+      destroyedBalls: destroyedBalls,
+    );
   }
 
   void moveBall(Ball ball, double dt) {
@@ -79,14 +82,20 @@ class CollisionSystem {
     Absorber absorber,
   ) {
     final minDistance = ball.radius + absorber.radius;
-    if (ball.position.distanceToSquared(absorber.position) > (minDistance * minDistance)) {
+    if (ball.position.distanceToSquared(absorber.position) >
+        (minDistance * minDistance)) {
       return null;
     }
 
     final isGoodBall = ball.type == BallType.good;
-    final event = isGoodBall ? const GoodBallAbsorbed() : const BadBallAbsorbed();
+    final event = isGoodBall
+        ? const GoodBallAbsorbed()
+        : const BadBallAbsorbed();
     if (isGoodBall) {
-      return const AbsorberCollisionResult(event: GoodBallAbsorbed(), shouldDestroyBall: true);
+      return const AbsorberCollisionResult(
+        event: GoodBallAbsorbed(),
+        shouldDestroyBall: true,
+      );
     }
 
     return AbsorberCollisionResult(event: event, shouldDestroyBall: true);

@@ -1,8 +1,7 @@
 import 'package:absorb/shared/observers/simple_bloc_observer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'game/ui/game_screen.dart';
+import 'absorb_game/absorb_game_page.dart';
 
 void main() {
   Bloc.observer = const SimpleBlocObserver();
@@ -19,7 +18,7 @@ class AbsorbApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
       ),
-      home: const GameScreen(),
+      home: const AbsorbGamePage(),
     );
   }
 }

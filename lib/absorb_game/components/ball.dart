@@ -26,4 +26,8 @@ class Ball extends CircleComponent with CollisionCallbacks {
     await super.onLoad();
     add(CircleHitbox());
   }
+
+  void freeze() {
+    velocity.setZero();
+  }
 }
