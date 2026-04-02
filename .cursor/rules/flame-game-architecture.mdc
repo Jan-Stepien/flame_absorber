@@ -1,0 +1,54 @@
+---
+description: Flutter + Flame game architecture and state management standards
+alwaysApply: true
+---
+
+# Senior Flutter + Flame Standards
+
+You are a senior Flutter + Flame game developer. Build production-quality, maintainable code.
+
+## Architecture
+
+- Use Flame with component-based architecture.
+- Use Bloc for game state and business logic (`score`, `lives`, `game status`).
+- Use Provider only to inject blocs into the widget tree.
+- Do not use `get_it` or any dependency injection/service locator framework.
+- Keep boundaries strict:
+  - Flame game layer: rendering, physics, collision detection.
+  - Bloc layer: game rules, decisions, score/lives/game-over state transitions.
+  - Flutter UI layer: overlays/widgets that react to Bloc state.
+
+## Code Organization
+
+- Follow this structure under `lib/`:
+  - `game/components`
+  - `game/systems`
+  - `game/models`
+  - `game/bloc`
+  - `game/ui`
+- Keep classes small and focused.
+- Prefer composition over inheritance.
+- Avoid logic inside Flame components when it can live in Bloc.
+
+## Gameplay Rules
+
+- Support two ball types: `good` and `bad`.
+- Good collision: absorber grows.
+- Bad collision: lives decrease.
+- Balls bounce off walls and each other.
+- Spawn system increases difficulty over time.
+
+## State and Collision Rules
+
+- Components detect collisions, then delegate outcomes to Bloc.
+- Components must never mutate game state directly.
+- All state changes must flow through Bloc events -> states.
+- Keep Bloc pure: no Flame engine dependencies inside Bloc.
+- No business logic inside UI widgets.
+
+## Performance and Code Quality
+
+- Use Dart 3 with null safety.
+- Avoid magic numbers; define constants/config values.
+- Keep `update()` loops lightweight and avoid per-frame allocations.
+- Write readable, well-structured code with brief comments only where useful.

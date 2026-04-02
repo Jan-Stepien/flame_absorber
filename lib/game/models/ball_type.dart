@@ -1,0 +1,1 @@
+enum BallType { good, bad }
