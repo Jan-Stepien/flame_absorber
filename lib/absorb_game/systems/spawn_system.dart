@@ -2,6 +2,13 @@ import 'dart:math' as math;
 import 'package:absorb/absorb_game/components/ball.dart';
 import 'package:flame/components.dart';
 
+/// System for spawning [Ball]s in the game.
+/// Handles the logic for spawning balls at random intervals.
+/// Increases difficulty over time by decreasing the spawn interval.
+///
+/// SpawnSystem is not adding the [Component]'s to the game.
+/// It is only responsible for creating the [Component]s and adding them to the [AbsorbGameController].
+
 class SpawnSystem {
   static final math.Random _random = math.Random();
   static const double _minBallDistanceFromAbsorber = 50;

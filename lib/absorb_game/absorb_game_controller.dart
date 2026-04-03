@@ -9,7 +9,10 @@ import 'package:absorb/absorb_game/states/game_state.dart';
 import 'package:absorb/absorb_game/states/game_state_bloc.dart';
 import 'package:absorb/absorb_game/systems/spawn_system.dart';
 
-class AbsorbController extends Component
+/// Controller for the [AbsorbGame].
+/// Manages the game components: the [Wall]s, the [Absorber], and the [Ball]s.
+/// Handles the game logic: adding [Ball]s to the game, updating the world, and resetting the game.
+class AbsorbGameController extends Component
     with
         HasGameReference<AbsorbGame>,
         FlameBlocReader<GameStateBloc, GameState> {
@@ -19,7 +22,7 @@ class AbsorbController extends Component
   final List<Wall> _walls = <Wall>[];
   late final Absorber absorber;
 
-  AbsorbController();
+  AbsorbGameController();
 
   @override
   Future<void> onLoad() async {
@@ -107,6 +110,6 @@ class AbsorbController extends Component
 
   void _addBall(Ball ball) {
     _balls.add(ball);
-    add(ball); // Add to GameController, not directly to game
+    add(ball);
   }
 }

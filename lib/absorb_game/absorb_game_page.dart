@@ -7,6 +7,11 @@ import 'absorb_game.dart';
 import 'states/game_state_bloc.dart';
 import 'overlays/score_overlay.dart';
 
+/// The page that displays the [AbsorbGame].
+/// The [AbsorbGamePage] is the home screen of the application.
+///
+/// This is an example of embedding a [FlameGame] in a Flutter app.
+/// Shows how to share [Bloc] state between the [FlameGame] and the Flutter app.
 class AbsorbGamePage extends StatelessWidget {
   const AbsorbGamePage({super.key});
 

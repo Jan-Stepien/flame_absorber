@@ -9,8 +9,12 @@ void main() {
   runApp(const AbsorbApp());
 }
 
+/// The main entry point for the application.
+/// Initializes the [MaterialApp] with the [AbsorbGamePage] as the home screen.
+/// The [AbsorbApp] is the root widget of the application.
 class AbsorbApp extends StatelessWidget {
   const AbsorbApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

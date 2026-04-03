@@ -9,6 +9,8 @@ import 'ball.dart';
 
 enum WallEdge { top, bottom, left, right }
 
+/// Wall component that represents a wall in the game,
+/// that is the outer boundaries of the screen.
 class Wall extends RectangleComponent with CollisionCallbacks {
   static const double thickness = 1;
 
