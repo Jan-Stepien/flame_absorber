@@ -1,9 +1,6 @@
 import 'dart:math' as math;
-
+import 'package:absorb/absorb_game/components/ball.dart';
 import 'package:flame/components.dart';
-
-import '../components/ball.dart';
-import '../models/ball_type.dart';
 
 class SpawnSystem {
   static final math.Random _random = math.Random();
@@ -22,8 +19,8 @@ class SpawnSystem {
     required double absorberRadius,
   }) {
     return <Ball>[
-      createBallForType(worldSize, center, absorberRadius, BallType.good),
-      createBallForType(worldSize, center, absorberRadius, BallType.bad),
+      _createBallForType(worldSize, center, absorberRadius, BallType.good),
+      _createBallForType(worldSize, center, absorberRadius, BallType.bad),
     ];
   }
 
@@ -56,11 +53,11 @@ class SpawnSystem {
     Vector2 absorberPosition,
     double absorberRadius,
   ) {
-    final type = _random.nextDouble() > 0.4 ? BallType.good : BallType.bad;
-    return createBallForType(gameSize, absorberPosition, absorberRadius, type);
+    final type = _random.nextDouble() > 0.5 ? BallType.good : BallType.bad;
+    return _createBallForType(gameSize, absorberPosition, absorberRadius, type);
   }
 
-  Ball createBallForType(
+  Ball _createBallForType(
     Vector2 gameSize,
     Vector2 absorberPosition,
     double absorberRadius,

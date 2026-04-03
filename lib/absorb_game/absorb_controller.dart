@@ -2,40 +2,28 @@ import 'package:absorb/absorb_game/absorb_game.dart';
 import 'package:flame/components.dart';
 import 'package:flame_bloc/flame_bloc.dart';
 
-import 'absorber.dart';
-import 'ball.dart';
-import '../states/game_state.dart';
-import '../states/game_state_bloc.dart';
-import '../systems/collision_system.dart';
-import '../systems/spawn_system.dart';
+import 'components/absorber.dart';
+import 'components/ball.dart';
+import 'components/wall.dart';
+import 'package:absorb/absorb_game/states/game_state.dart';
+import 'package:absorb/absorb_game/states/game_state_bloc.dart';
+import 'package:absorb/absorb_game/systems/spawn_system.dart';
 
-//
-class GameController extends Component
+class AbsorbController extends Component
     with
         HasGameReference<AbsorbGame>,
         FlameBlocReader<GameStateBloc, GameState> {
-  final CollisionSystem _collisionSystem = CollisionSystem();
   final SpawnSystem _spawnSystem = SpawnSystem();
 
   final List<Ball> _balls = <Ball>[];
+  final List<Wall> _walls = <Wall>[];
   late final Absorber absorber;
 
-  GameController();
+  AbsorbController();
 
   @override
   Future<void> onLoad() async {
     await super.onLoad();
-
-    add(
-      FlameBlocListener<GameStateBloc, GameState>(
-        listenWhen: (previous, next) =>
-            previous.absorberRadius != next.absorberRadius,
-        onNewState: (state) {
-          absorber.radius = state.absorberRadius;
-          absorber.onGameResize(game.size);
-        },
-      ),
-    );
 
     add(
       FlameBlocListener<GameStateBloc, GameState>(
@@ -46,6 +34,12 @@ class GameController extends Component
         },
       ),
     );
+
+    _walls.addAll(WallEdge.values.map((edge) => Wall(edge: edge)));
+    for (final wall in _walls) {
+      wall.layout(game.size);
+      add(wall);
+    }
 
     absorber = Absorber(position: game.size / 2);
     add(absorber);
@@ -69,21 +63,6 @@ class GameController extends Component
       return;
     }
 
-    final collisionResult = _collisionSystem.update(
-      dt: dt,
-      balls: _balls,
-      absorber: absorber,
-      worldSize: game.size,
-    );
-    final destroyed = collisionResult.destroyedBalls.toSet();
-    _balls.removeWhere(destroyed.contains);
-    for (final ball in destroyed) {
-      ball.removeFromParent();
-    }
-    for (final event in collisionResult.events) {
-      bloc.add(event);
-    }
-
     final newBalls = _spawnSystem.update(
       dt: dt,
       worldSize: game.size,
@@ -95,15 +74,21 @@ class GameController extends Component
     }
   }
 
+  @override
+  void onGameResize(Vector2 size) {
+    super.onGameResize(size);
+    for (final wall in _walls) {
+      wall.layout(size);
+    }
+  }
+
   void _resetWorld() {
     for (final ball in _balls) {
       ball.removeFromParent();
     }
     _balls.clear();
 
-    absorber
-      ..radius = GameState.initial.absorberRadius
-      ..setPositionImmediate(game.size / 2);
+    absorber.setPositionImmediate(game.size / 2);
 
     _spawnInitialBalls(game.size / 2);
   }
@@ -122,6 +107,6 @@ class GameController extends Component
 
   void _addBall(Ball ball) {
     _balls.add(ball);
-    game.add(ball);
+    add(ball); // Add to GameController, not directly to game
   }
 }

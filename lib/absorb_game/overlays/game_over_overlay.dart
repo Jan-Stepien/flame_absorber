@@ -2,7 +2,7 @@ import 'package:absorb/absorb_game/states/game_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../states/game_state_bloc.dart';
+import 'package:absorb/absorb_game/states/game_state_bloc.dart';
 
 class GameOverOverlay extends StatelessWidget {
   const GameOverOverlay({super.key});

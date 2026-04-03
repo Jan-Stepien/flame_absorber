@@ -25,8 +25,6 @@ final class BadBallAbsorbed extends GameStateEvent {
 class GameStateBloc extends Bloc<GameStateEvent, GameState> {
   static const int _initialLives = 3;
   static const int _goodBallScore = 10;
-  static const double _initialAbsorberRadius = 36;
-  static const double _goodAbsorbRadiusGrowth = 3;
 
   GameStateBloc() : super(GameState.initial) {
     on<StartGame>(_onStartGame);
@@ -45,7 +43,6 @@ class GameStateBloc extends Bloc<GameStateEvent, GameState> {
         score: 0,
         lives: _initialLives,
         status: GameStatus.playing,
-        absorberRadius: _initialAbsorberRadius,
       ),
     );
   }
@@ -54,12 +51,7 @@ class GameStateBloc extends Bloc<GameStateEvent, GameState> {
     if (state.status != GameStatus.playing) {
       return;
     }
-    emit(
-      state.copyWith(
-        score: state.score + _goodBallScore,
-        absorberRadius: state.absorberRadius + _goodAbsorbRadiusGrowth,
-      ),
-    );
+    emit(state.copyWith(score: state.score + _goodBallScore));
   }
 
   void _onBadBallAbsorbed(BadBallAbsorbed event, Emitter<GameState> emit) {

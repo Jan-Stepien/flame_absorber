@@ -10,13 +10,11 @@ abstract class GameState with _$GameState {
     required int score,
     required int lives,
     required GameStatus status,
-    required double absorberRadius,
   }) = _GameState;
 
   static const GameState initial = GameState(
     score: 0,
     lives: 3,
     status: GameStatus.start,
-    absorberRadius: 36,
   );
 }

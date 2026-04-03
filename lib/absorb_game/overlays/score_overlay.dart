@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../states/game_state_bloc.dart';
+import 'package:absorb/absorb_game/states/game_state_bloc.dart';
 
 class ScoreOverlay extends StatelessWidget {
   const ScoreOverlay({super.key});
